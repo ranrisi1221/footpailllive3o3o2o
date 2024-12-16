@@ -1,0 +1,210 @@
+﻿<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مشاهدة بث المباريات</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #121212;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        header {
+            background: linear-gradient(45deg, #1f1f1f, #3a3a3a);
+            color: white;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .menu-icon {
+            cursor: pointer;
+            font-size: 24px;
+            position: absolute;
+            left: 15px;
+        }
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #222;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            z-index: 1000;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+        }
+        .sidebar a {
+            padding: 15px 25px;
+            text-decoration: none;
+            font-size: 20px;
+            color: white;
+            display: block;
+            transition: 0.3s;
+            border-bottom: 1px solid #444;
+        }
+        .sidebar a:hover {
+            background-color: #575757;
+            color: #ff8a80;
+        }
+        .sidebar a:first-child {
+            border-top: 1px solid #444;
+        }
+        .content {
+            padding: 20px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            z-index: 1;
+        }
+        .match {
+            background-color: #1f1f1f;
+            width: 45%;
+            margin: 10px;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .match:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
+        }
+        .screen {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            position: relative;
+            z-index: 2;
+        }
+        .screen h3, .screen p {
+            color: #fff;
+            margin: 0;
+        }
+        .comments {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #333;
+            border-radius: 10px;
+        }
+        .comments input, .comments button {
+            margin-top: 10px;
+            width: 80%;
+            font-size: 14px;
+            border-radius: 0;
+        }
+        .comments button {
+            background-color: #ff8a80;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .comments button:hover {
+            background-color: #e57373;
+        }
+        #commentSection div {
+            background-color: #333;
+            margin-top: 5px;
+            padding: 5px;
+            border-radius: 3px;
+            font-size: 14px;
+            color: #fff;
+        }
+        footer {
+            background-color: #1f1f1f;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <span class="menu-icon" onclick="toggleSidebar()">☰</span>
+        <p style="margin: 0; font-size: 18px;">لا تنسى صلاتك</p>
+        
+        <h1>مشاهدة بث المباريات</h1>
+    </header>
+
+    <div id="sidebar" class="sidebar">
+        <a href="javascript:void(0)" onclick="toggleSidebar()">إغلاق ×</a>
+        <a href="player_news.html">أخبار اللاعبين الحديثة</a>
+        <a href="https://www.instagram.com/ghaith._.4/" target="_blank">للإعلان</a>
+    </div>
+
+    <div class="content">
+        <div class="match">
+            <div class="screen">
+                <h3>السيتي ضد توتنهام</h3>
+                <p>البث سيبدأ قريبًا...</p>
+            </div>
+        </div>
+        <div class="match" onclick="window.location.href='streaming_page_2.html'">
+            <div class="screen">
+                <h3>فريق ج ضد فريق د</h3>
+                <p>البث سيبدأ قريبًا...</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="comments">
+        <h3>التعليقات</h3>
+        <input type="text" id="guestName" placeholder="اسم الضيف">
+        <input type="text" id="commentInput" placeholder="اكتب تعليقك هنا">
+        <button onclick="submitComment()">أرسل تعليقك</button>
+        <div id="commentSection"></div>
+    </div>
+
+    <footer>
+        <p>تابعنا على إنستغرام: <a href="https://www.instagram.com/ghaith._.4/" target="_blank" style="color: #ff8a80; text-decoration: none; font-weight: bold;">ghaith._.4</a></p>
+    </footer>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar.style.width === '250px') {
+                sidebar.style.width = '0';
+            } else {
+                sidebar.style.width = '250px';
+            }
+        }
+
+        function submitComment() {
+            const guestName = document.getElementById('guestName').value;
+            const commentInput = document.getElementById('commentInput').value;
+            if (guestName && commentInput) {
+                const commentSection = document.getElementById('commentSection');
+                const commentElement = document.createElement('div');
+                commentElement.textContent = `${guestName}: ${commentInput}`;
+                commentSection.appendChild(commentElement);
+                document.getElementById('guestName').value = '';
+                document.getElementById('commentInput').value = '';
+
+                // إزالة التعليق بعد يوم
+                setTimeout(() => {
+                    commentSection.removeChild(commentElement);
+                }, 24 * 60 * 60 * 1000);
+            }
+        }
+    </script>
+</body>
+</html>
